@@ -9,6 +9,7 @@ target/
 .idea/compiler.xml
 .idea/libraries/
 *.iws
+db_cloud.properties
 *.iml
 *.ipr
 
