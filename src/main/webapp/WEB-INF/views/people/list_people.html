@@ -2,27 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>List of Books</title>
+    <title>List of people</title>
     <style>
         .heading_page {
             text-align: center;
         }
 
-        .book_div {
-            border-style: solid;
-            border-color: black;
-            border-width: 3px;
-            border-radius: 30px;
-            margin: 20px;
-            padding: 20px;
-            font-size: 25px;
-            text-align: center;
-        }
-
-        main {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-        }
         header {
             width: auto;
             height: 150px;
@@ -59,23 +44,22 @@
             color: white;
             transform: translateY(-7px);
         }
-
-
+        main a {
+            font-size: 30px;
+        }
     </style>
 </head>
 <body>
 <header>
-<h1 class="heading_page">Accounting in the library</h1>
+    <h1 class="heading_page">Accounting in the library</h1>
     <a class="left" th:href = "@{/library}">List of Book</a>
     <a class="right" th:href = "@{/people}">List of People</a>
 </header>
 <hr>
 <main>
-    <div class="book_div" th:each="book : ${books}">
-        <a th:href= "@{/library/{id}(id = ${book.getIdBook()})}" th:text="${book.getNameBook()}"></a>
-        <p th:text="'Author of Book : ' + ${book.getAuthorBook()}">author Book</p>
+    <div th:each="person : ${people}">
+        <a th:href= "@{/people/{id}(id = ${person.getId()})}" th:text="${person.getFullname()}"></a>
     </div>
 </main>
-<a href="/library/create_book">Add book to Library</a>
 </body>
 </html>

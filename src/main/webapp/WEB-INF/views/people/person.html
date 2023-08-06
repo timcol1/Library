@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+<p th:text="'FullName of Person : ' + ${person.getFullname()}"></p>
+<p id="date" th:text="'Datebirth person : ' + ${person.getBirth()}">date Book</p>
+<a th:href="@{/library/{id}/edit(id = ${person.getId()})}">Edit this person</a>
+<form th:method = "DELETE" th:action="@{/library/{id}(id = ${person.getId()})}">
+  <input type="submit" value="Delete this person" />
+</form>
+</body>
+</html>

@@ -1,6 +1,6 @@
 package avlyakulov.timur.library.controllers;
 
-import avlyakulov.timur.library.dao.LibraryDAO;
+import avlyakulov.timur.library.dao.BookDAO;
 import avlyakulov.timur.library.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/library")
-public class LibraryController {
+public class BookController {
 
-    private final LibraryDAO libraryDAO;
+    private final BookDAO bookDAO;
 
     @Autowired
-    public LibraryController(LibraryDAO libraryDAO) {
-        this.libraryDAO = libraryDAO;
+    public BookController(BookDAO bookDAO) {
+        this.bookDAO = bookDAO;
     }
 
     @GetMapping()
     public String listOfBooks(Model model) {
-        model.addAttribute("books", libraryDAO.getListOfBooks());
+        model.addAttribute("books", bookDAO.getListOfBooks());
         return "library/list_books";
     }
 
@@ -33,19 +33,19 @@ public class LibraryController {
 
     @PostMapping()
     public String createBook(@ModelAttribute Book book) {
-        libraryDAO.addBook(book);
+        bookDAO.addBook(book);
         return "redirect:/library";
     }
 
     @GetMapping("/{id}")
     public String showBookById(Model model, @PathVariable int id) {
-        model.addAttribute("book", libraryDAO.showBookById(id));
+        model.addAttribute("book", bookDAO.showBookById(id));
         return "/library/book";
     }
 
     @GetMapping("/{id}/edit")
     public String getFormEditingBook(@PathVariable int id, Model model) {
-        model.addAttribute("book", libraryDAO.showBookById(id));
+        model.addAttribute("book", bookDAO.showBookById(id));
         return "/library/edit_book";
     }
 
@@ -54,13 +54,13 @@ public class LibraryController {
     //ModelAttribute - это все что передается из форм в форму
     @PatchMapping("/{id}")
     public String editBook(@ModelAttribute("book") Book book, @PathVariable int id) {
-        libraryDAO.editBook(book, id);
+        bookDAO.editBook(book, id);
         return "redirect:/library";
     }
 
     @DeleteMapping("/{id}")
     public String deleteBook(@PathVariable int id) {
-        libraryDAO.deleteBook(id);
+        bookDAO.deleteBook(id);
         return "redirect:/library";
     }
 }

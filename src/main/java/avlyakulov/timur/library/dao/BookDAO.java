@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class LibraryDAO {
+public class BookDAO {
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public LibraryDAO(JdbcTemplate jdbcTemplate) {
+    public BookDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
