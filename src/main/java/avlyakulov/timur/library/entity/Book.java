@@ -1,32 +1,32 @@
 package avlyakulov.timur.library.entity;
 
-public class Book {
-    private int id;
+import java.text.SimpleDateFormat;
 
+public class Book {
+    private int idBook;
     private String nameBook;
     private String authorBook;
-
     private String dateBook;
     private boolean isTaken;
 
-    public Book(int id, String nameBook, String authorBook, String dateBook, boolean isTaken) {
-        this.id = id;
+    public Book(int idBook, String nameBook, String authorBook, String dateBook) {
+        this.idBook = idBook;
         this.nameBook = nameBook;
         this.authorBook = authorBook;
         this.dateBook = dateBook;
-        this.isTaken = isTaken;
-    }
-
-    public Book () {
 
     }
 
-    public int getId() {
-        return id;
+    public Book() {
+
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getIdBook() {
+        return idBook;
+    }
+
+    public void setId_Book(int idBook) {
+        this.idBook = idBook;
     }
 
     public String getNameBook() {
@@ -51,13 +51,5 @@ public class Book {
 
     public void setDateBook(String dateBook) {
         this.dateBook = dateBook;
-    }
-
-    public boolean isTaken() {
-        return isTaken;
-    }
-
-    public void setTaken(boolean taken) {
-        isTaken = taken;
     }
 }

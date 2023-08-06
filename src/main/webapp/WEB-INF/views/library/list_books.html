@@ -3,14 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>List of Books</title>
+    <style>
+        .heading_page {
+            text-align: center;
+        }
+
+        .book_div {
+            border-style: solid;
+            border-color: black;
+            border-width: 3px;
+            border-radius: 30px;
+            margin: 20px;
+            padding: 20px;
+            font-size: 25px;
+            text-align: center;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+    </style>
 </head>
 <body>
-<h1>Accounting in the library</h1>
-<div>
-    <p>Name book</p>
-    <p>Does this book is taken</p>
-    <p>author Book</p>
-    <p>date Book</p>
-</div>
+<h1 class="heading_page">Accounting in the library</h1>
+<hr>
+<main>
+    <div class="book_div" th:each="book : ${books}">
+        <a th:href= "@{/library/{id}(id = ${book.getIdBook()})}" th:text="${book.getNameBook()}"></a>
+        <p th:text="'Author of Book : ' + ${book.getAuthorBook()}">author Book</p>
+    </div>
+</main>
+<a href="/library/create_book">Add book to Library</a>
 </body>
 </html>

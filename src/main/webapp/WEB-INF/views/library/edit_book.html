@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editing Book</title>
+</head>
+<body>
+<form th:method="PATCH" th:action = "@{/library/{id}(id = ${book.getIdBook()})}" th:object = "${book}">
+  <label for="name">Insert name of book</label>
+  <input id="name" th:field = "*{nameBook}" type="text"/>
+  <br>
+  <label for="author">insert the author book</label>
+  <input id="author" th:field = "*{authorBook}" type="text"/>
+  <br>
+  <label for="date">Insert the date of creation book</label>
+  <input id="date" th:field = "*{dateBook}" type="text"/>
+  <br>
+  <input type="submit" value="Edit Book">
+</form>
+</body>
+</html>
