@@ -104,6 +104,8 @@
 <main>
     <div class="book_div" th:each="book : ${books}">
         <a th:href="@{/library/{id}(id = ${book.getIdBook()})}" th:text="${book.getNameBook()}"></a>
+        <p th:text="'This book is taken by : ' + ${dao.getPerson(book.getIdPerson()).getFullname()}" th:if = "${book.getIdPerson() > 0}">taken Book</p>
+        <p th:text="'This book is free'" th:if = "${book.getIdPerson() == 0}">taken Book</p>
         <p th:text="'Author of Book : ' + ${book.getAuthorBook()}">author Book</p>
     </div>
 </main>

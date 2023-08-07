@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Book</title>
     <style>
-        p {
-            font-size: 25px;
+        body {
+            font-size: 30px;
             text-align: center;
         }
     </style>
@@ -14,10 +14,22 @@
 <p th:text="'Name of Book : ' + ${book.getNameBook()}"></p>
 <p id="author" th:text="'Author of Book : ' + ${book.getAuthorBook()}">author Book</p>
 <p id="date" th:text="'Date of book : ' + ${book.getDateBook()}">date Book</p>
+<p th:text="'This book is free'" th:if = "${book.getIdPerson() == 0}">taken Book</p>
+<p th:text="'This book is taken by : ' + ${person.getFullname()}" th:if = "${book.getIdPerson() > 0}">taken Book</p>
 <a th:href="@{/library/{id}/edit(id = ${book.getIdBook()})}">Edit this book</a>
 <br><br>
-<form th:method = "DELETE" th:action="@{/library/{id}(id = ${book.getIdBook()})}">
-    <input type="submit" value="Delete this book" />
+<form th:method="DELETE" th:action="@{/library/{id}(id = ${book.getIdBook()})}">
+    <input type="submit" value="Delete this book"/>
+</form>
+<form th:if = "${book.getIdPerson() > 0}" th:method="PATCH" th:action="@{/library/{id}/free(id = ${book.getIdBook()})}">
+    <input type="submit" value="Free this book from person"/>
+</form>
+<form th:if = "${book.getIdPerson() == 0}" th:method="PATCH" th:action="@{/library/{id}/appoint(id = ${book.getIdBook()})}">
+    <label for ="personBook">Appoint person for this book </label>
+        <select id="personBook" th:object="${personSend}" th:field="*{idPerson}">
+            <option th:each = "person : ${people}" th:value = "${person.getIdPerson()}" th:text = "${person.getFullname()}"></option>
+        </select>
+    <input type="submit" value="Appoint user for book"/>
 </form>
 </body>
 </html>

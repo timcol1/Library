@@ -1,6 +1,7 @@
 package avlyakulov.timur.library.controllers;
 
 import avlyakulov.timur.library.dao.PersonDAO;
+import avlyakulov.timur.library.entity.Book;
 import avlyakulov.timur.library.entity.Person;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/people")
@@ -43,6 +46,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String getPersonById(@PathVariable int id, Model model) {
         model.addAttribute("person", personDAO.getPerson(id));
+        model.addAttribute("books", personDAO.getBooksByUserId(id));
         return "people/person";
     }
 

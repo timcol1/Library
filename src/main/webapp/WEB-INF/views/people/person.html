@@ -12,8 +12,13 @@
 <body>
 <p th:text="'FullName of Person : ' + ${person.getFullname()}"></p>
 <p id="date" th:text="'Datebirth person : ' + ${person.getDate_birth()}">date Book</p>
-<a th:href="@{/people/{id}/edit(id = ${person.getId()})}">Edit this person</a>
-<form th:method = "DELETE" th:action="@{/people/{id}(id = ${person.getId()})}">
+<a th:href="@{/people/{id}/edit(id = ${person.getIdPerson()})}">Edit this person</a>
+<p th:text = "'This person didn\'t take any book'" th:if = "${#lists.isEmpty(books)}">books</p>
+<div th:if = "${!#lists.isEmpty(books)}">
+    <h2>Books which were taken by this user</h2>
+    <p th:each = "book : ${books}" th:text = "${book.getNameBook()}+', ' + ${book.getAuthorBook()} +', ' + ${book.getDateBook()}"></p>
+</div>
+<form th:method = "DELETE" th:action="@{/people/{id}(id = ${person.getIdPerson()})}">
   <input type="submit" value="Delete this person" />
 </form>
 </body>

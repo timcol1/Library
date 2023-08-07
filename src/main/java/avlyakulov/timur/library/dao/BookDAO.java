@@ -2,7 +2,6 @@ package avlyakulov.timur.library.dao;
 
 import avlyakulov.timur.library.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +19,7 @@ public class BookDAO {
     }
 
     public List<Book> getListOfBooks() {
-        return jdbcTemplate.query("select * from book order by id_book", new BeanPropertyRowMapper<>(Book.class));
+        return jdbcTemplate.query("select * from book order by id_book", new BookMapper());
     }
 
     public void addBook(Book book) {
@@ -29,13 +28,13 @@ public class BookDAO {
 
     public Book showBookById(int id) {
         return jdbcTemplate.query("select * from book where id_book = ?",
-                        new Object[]{id}, new BeanPropertyRowMapper<>(Book.class))
+                        new Object[]{id}, new BookMapper())
                 .stream().findAny().orElse(null);
     }
 
     public Optional<Book> showBookById(String nameBook) {
         return jdbcTemplate.query("select * from book where name_book = ?", new Object[]{nameBook},
-                        new BeanPropertyRowMapper<>(Book.class)) //это мы получаем лист наших объектов и тут уже мы получаем то что надо
+                        new BookMapper()) //это мы получаем лист наших объектов и тут уже мы получаем то что надо
                 .stream().findAny();
     }
 
@@ -47,5 +46,15 @@ public class BookDAO {
 
     public void deleteBook(int id) {
         jdbcTemplate.update("delete from book where id_book = ?", id);
+    }
+
+    //update book set id_person = 2 where id_book = 1
+
+    public void freeBookFromUser(int idBook) {
+        jdbcTemplate.update("update book set idperson = null where id_book = ?", idBook);
+    }
+
+    public void appointUserForBook(int idPerson, int idBook) {
+        jdbcTemplate.update("update book set idperson = ? where id_book = ?", idPerson, idBook);
     }
 }
