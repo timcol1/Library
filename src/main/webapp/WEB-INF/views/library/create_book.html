@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Book</title>
+  <style>
+    body {
+      font-size: 30px;
+    }
+  </style>
 </head>
 <body>
 <form th:method="POST" th:action = "@{/library}" th:object = "${book}">
@@ -12,7 +17,7 @@
   <label for="author">insert the author book</label>
   <input id="author" th:field = "*{authorBook}" type="text"/>
   <br>
-  <label for="date">Insert the date of creation book</label>
+  <label for="date">Insert the year of creation book</label>
   <input id="date" th:field = "*{dateBook}" type="text"/>
   <br>
   <input type="submit" value="Create Book">

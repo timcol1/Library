@@ -23,9 +23,20 @@ public class PersonDAO {
         return jdbcTemplate.query("select * from people order by id_person", new BeanPropertyRowMapper<>(Person.class));
     }
 
-    public Optional<Person> getPerson(int id) {
-        return jdbcTemplate.query("select * from people where id_person = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
-                .stream().findAny();
+    public void createPerson(Person person) {
+        jdbcTemplate.update("insert into people (fullname, date_birth) values(?,?)", person.getFullname(), person.getDate_birth());
     }
 
+    public Person getPerson(int id) {
+        return jdbcTemplate.query("select * from people where id_person = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
+                .stream().findAny().orElse(null);
+    }
+
+    public void updatePerson(Person updatedPerson, int id) {
+        jdbcTemplate.update("update people set fullname = ?, date_birth = ? where id_person = ?", updatedPerson.getFullname(), updatedPerson.getDate_birth(), id);
+    }
+
+    public void deletePerson(int id) {
+        jdbcTemplate.update("delete from people where id_person = ?", id);
+    }
 }

@@ -6,7 +6,6 @@ public class Person {
     private String date_birth;
 
 
-
     public Person(int id, String name, String birthday) {
         this.id = id;
         this.fullname = name;
@@ -33,11 +32,11 @@ public class Person {
         this.fullname = fullname;
     }
 
-    public String getBirth() {
+    public String getDate_birth() {
         return date_birth;
     }
 
-    public void setDate_Birth(String date_birth) {
+    public void setDate_birth(String date_birth) {
         this.date_birth = date_birth;
     }
 }

@@ -4,6 +4,52 @@
     <meta charset="UTF-8">
     <title>List of Books</title>
     <style>
+        .heading_page {
+            text-align: center;
+        }
+
+        header {
+            width: auto;
+            height: 150px;
+        }
+
+        header a {
+            text-decoration: none;
+            display: inline-block;
+            width: 140px;
+            height: 45px;
+            line-height: 45px;
+            border-radius: 45px;
+            margin: 10px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 3px;
+            font-weight: 600;
+            color: #524f4e;
+            background: white;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, .1);
+            transition: .3s;
+            position: absolute;
+        }
+
+        header a.right {
+            right: 40%;
+        }
+
+        header a.left {
+            left: 40%;
+        }
+
+        header a:hover {
+            background: #2EE59D;
+            box-shadow: 0 15px 20px rgba(46, 229, 157, .4);
+            color: white;
+            transform: translateY(-7px);
+        }
+
+
         .book_div {
             border-style: solid;
             border-color: black;
@@ -14,21 +60,53 @@
             font-size: 25px;
             text-align: center;
         }
+
         main {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
         }
 
+        .adding_book {
+            text-decoration: none;
+            display: block;
+            margin: auto 40%;
+            width: 200px;
+            font-size: 30px;
+            --bg: #000;
+            --hover-bg: #ff90e8;
+            --hover-text: #000;
+            color: #fff;
+            border: 1px solid var(--bg);
+            border-radius: 4px;
+            padding: 0.8em 2em;
+            background: var(--bg);
+            transition: 0.2s;
+        }
+
+        .adding_book:hover {
+            color: var(--hover-text);
+            transform: translate(-0.25rem, -0.25rem);
+            background: var(--hover-bg);
+            box-shadow: 0.25rem 0.25rem var(--bg);
+        }
+
+        .adding_book:active {
+            transform: translate(0);
+            box-shadow: none;
+        }
+
     </style>
+
 </head>
 <body>
 <header th:insert="template/header::header"></header>
+<hr>
 <main>
     <div class="book_div" th:each="book : ${books}">
-        <a th:href= "@{/library/{id}(id = ${book.getIdBook()})}" th:text="${book.getNameBook()}"></a>
+        <a th:href="@{/library/{id}(id = ${book.getIdBook()})}" th:text="${book.getNameBook()}"></a>
         <p th:text="'Author of Book : ' + ${book.getAuthorBook()}">author Book</p>
     </div>
 </main>
-<a href="/library/create_book">Add book to Library</a>
+<a class="adding_book" href="/library/create_book">Add book to Library</a>
 </body>
 </html>

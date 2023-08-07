@@ -1,12 +1,11 @@
 package avlyakulov.timur.library.controllers;
 
 import avlyakulov.timur.library.dao.PersonDAO;
+import avlyakulov.timur.library.entity.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/people")
@@ -24,9 +23,39 @@ public class PeopleController {
         return "people/list_people";
     }
 
+    @GetMapping("/new")
+    public String getFormCreatePerson(Model model) {
+        model.addAttribute("person", new Person());
+        return "/people/create_person";
+    }
+
+    @PostMapping()
+    public String createPerson(@ModelAttribute Person person) {
+        personDAO.createPerson(person);
+        return "redirect:/people";
+    }
+
     @GetMapping("/{id}")
-    public String getPersonById(@PathVariable int id, Model model){
-        model.addAttribute("person", personDAO.getPerson(id).orElse(null));
+    public String getPersonById(@PathVariable int id, Model model) {
+        model.addAttribute("person", personDAO.getPerson(id));
         return "people/person";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String getFormEdit(@PathVariable int id, Model model) {
+        model.addAttribute("person", personDAO.getPerson(id));
+        return "people/edit_person";
+    }
+
+    @PatchMapping("/{id}")
+    public String editPerson(@PathVariable int id, @ModelAttribute Person person) {
+        personDAO.updatePerson(person, id);
+        return "redirect:/people";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deletePerson(@PathVariable int id) {
+        personDAO.deletePerson(id);
+        return "redirect:/people";
     }
 }
