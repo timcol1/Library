@@ -1,8 +1,13 @@
 package avlyakulov.timur.library.entity;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+
 public class Person {
     private int id;
+    @NotEmpty(message = "The name cannot be empty")
     private String fullname;
+    @Pattern(regexp = "[0-31]{2}-[0-12]{2}-[1|2]\\w{3}", message = "Enter date in format dd-mm-yyyy")
     private String date_birth;
 
 

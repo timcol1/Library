@@ -2,9 +2,12 @@ package avlyakulov.timur.library.controllers;
 
 import avlyakulov.timur.library.dao.BookDAO;
 import avlyakulov.timur.library.entity.Book;
+import avlyakulov.timur.library.util.BookValidator;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -12,10 +15,12 @@ import org.springframework.web.bind.annotation.*;
 public class BookController {
 
     private final BookDAO bookDAO;
+    private final BookValidator bookValidator;
 
     @Autowired
-    public BookController(BookDAO bookDAO) {
+    public BookController(BookDAO bookDAO, BookValidator bookValidator) {
         this.bookDAO = bookDAO;
+        this.bookValidator = bookValidator;
     }
 
     @GetMapping()
@@ -32,7 +37,11 @@ public class BookController {
     }
 
     @PostMapping()
-    public String createBook(@ModelAttribute Book book) {
+    public String createBook(@ModelAttribute @Valid Book book, BindingResult bindingResult) {
+        bookValidator.validate(book, bindingResult);
+        if (bindingResult.hasErrors())
+            return "library/create_book";
+
         bookDAO.addBook(book);
         return "redirect:/library";
     }
@@ -46,6 +55,7 @@ public class BookController {
     @GetMapping("/{id}/edit")
     public String getFormEditingBook(@PathVariable int id, Model model) {
         model.addAttribute("book", bookDAO.showBookById(id));
+
         return "/library/edit_book";
     }
 
@@ -53,7 +63,9 @@ public class BookController {
     //PathVariable - это все из юрл ссылки
     //ModelAttribute - это все что передается из форм в форму
     @PatchMapping("/{id}")
-    public String editBook(@ModelAttribute("book") Book book, @PathVariable int id) {
+    public String editBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult, @PathVariable int id) {
+        if (bindingResult.hasErrors())
+            return "/library/edit_book";
         bookDAO.editBook(book, id);
         return "redirect:/library";
     }

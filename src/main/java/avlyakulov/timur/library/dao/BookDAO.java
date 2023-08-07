@@ -7,10 +7,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class BookDAO {
     private final JdbcTemplate jdbcTemplate;
+
 
     @Autowired
     public BookDAO(JdbcTemplate jdbcTemplate) {
@@ -29,6 +31,12 @@ public class BookDAO {
         return jdbcTemplate.query("select * from book where id_book = ?",
                         new Object[]{id}, new BeanPropertyRowMapper<>(Book.class))
                 .stream().findAny().orElse(null);
+    }
+
+    public Optional<Book> showBookById(String nameBook) {
+        return jdbcTemplate.query("select * from book where name_book = ?", new Object[]{nameBook},
+                        new BeanPropertyRowMapper<>(Book.class)) //это мы получаем лист наших объектов и тут уже мы получаем то что надо
+                .stream().findAny();
     }
 
 

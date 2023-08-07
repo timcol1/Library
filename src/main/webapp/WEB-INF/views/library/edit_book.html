@@ -3,19 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Editing Book</title>
+    <style>
+        body {
+            font-size: 30px;
+        }
+    </style>
 </head>
 <body>
-<form th:method="PATCH" th:action = "@{/library/{id}(id = ${book.getIdBook()})}" th:object = "${book}">
-  <label for="name">Insert name of book</label>
-  <input id="name" th:field = "*{nameBook}" type="text"/>
-  <br>
-  <label for="author">insert the author book</label>
-  <input id="author" th:field = "*{authorBook}" type="text"/>
-  <br>
-  <label for="date">Insert the date of creation book</label>
-  <input id="date" th:field = "*{dateBook}" type="text"/>
-  <br>
-  <input type="submit" value="Edit Book">
+<form th:method="PATCH" th:action="@{/library/{id}(id = ${book.getIdBook()})}" th:object="${book}">
+    <label for="name">Insert name of book</label>
+    <input id="name" th:field="*{nameBook}" type="text"/>
+    <div style="color: red" th:errors="*{nameBook}">Name Error</div>
+    <br>
+    <label for="author">insert the author book</label>
+    <input id="author" th:field="*{authorBook}" type="text"/>
+    <div style="color: red" th:errors="*{authorBook}">Name Error</div>
+    <br>
+    <label for="date">Insert the date of creation book</label>
+    <input id="date" th:field="*{dateBook}" type="text"/>
+    <div style="color: red" th:errors="*{dateBook}">Name Error</div>
+    <br>
+    <input type="submit" value="Edit Book">
 </form>
 </body>
 </html>

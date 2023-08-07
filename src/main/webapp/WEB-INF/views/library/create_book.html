@@ -13,12 +13,15 @@
 <form th:method="POST" th:action = "@{/library}" th:object = "${book}">
   <label for="name">Insert name of book</label>
   <input id="name" th:field = "*{nameBook}" type="text"/>
+  <div style="color: red" th:errors ="*{nameBook}">Name Error</div>
   <br>
   <label for="author">insert the author book</label>
   <input id="author" th:field = "*{authorBook}" type="text"/>
+  <div style="color: red" th:errors ="*{authorBook}">Name Error</div>
   <br>
   <label for="date">Insert the year of creation book</label>
   <input id="date" th:field = "*{dateBook}" type="text"/>
+  <div style="color: red" th:errors ="*{dateBook}">Name Error</div>
   <br>
   <input type="submit" value="Create Book">
 </form>

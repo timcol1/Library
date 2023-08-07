@@ -2,9 +2,11 @@ package avlyakulov.timur.library.controllers;
 
 import avlyakulov.timur.library.dao.PersonDAO;
 import avlyakulov.timur.library.entity.Person;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -30,7 +32,10 @@ public class PeopleController {
     }
 
     @PostMapping()
-    public String createPerson(@ModelAttribute Person person) {
+    public String createPerson(@ModelAttribute @Valid Person person, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "people/create_person";
+
         personDAO.createPerson(person);
         return "redirect:/people";
     }
@@ -48,7 +53,9 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String editPerson(@PathVariable int id, @ModelAttribute Person person) {
+    public String editPerson(@PathVariable int id, @ModelAttribute @Valid Person person, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "people/edit_person";
         personDAO.updatePerson(person, id);
         return "redirect:/people";
     }

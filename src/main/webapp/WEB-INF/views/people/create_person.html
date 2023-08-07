@@ -14,9 +14,12 @@
 <form th:method="POST" th:action = "@{/people}" th:object = "${person}">
     <label for="name">Insert name of person</label>
     <input id="name" th:field = "*{fullname}" type="text"/>
+    <div style="color: red" th:errors ="*{fullname}">Name Error</div>
+
     <br>
-    <label for="author">insert the date birth person</label>
+    <label for="author">insert the date birth person in format dd-mm-yyyy</label>
     <input id="author" th:field = "*{date_birth}" type="text"/>
+    <div style="color: red" th:errors ="*{date_birth}">Name Error</div>
     <br>
     <input type="submit" value="Create Person">
 </form>

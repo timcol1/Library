@@ -1,13 +1,19 @@
 package avlyakulov.timur.library.entity;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+
 import java.text.SimpleDateFormat;
 
 public class Book {
     private int idBook;
+    @NotEmpty(message = "Enter the name of book")
     private String nameBook;
+    @NotEmpty(message = "Enter the author of book")
     private String authorBook;
+    @Pattern(regexp = "[1|2]\\w{3}", message = "you enter wrong date!")
     private String dateBook;
-    private boolean isTaken;
 
     public Book(int idBook, String nameBook, String authorBook, String dateBook) {
         this.idBook = idBook;
